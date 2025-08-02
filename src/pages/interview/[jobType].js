@@ -19,6 +19,7 @@ export default function InterviewPage() {
   const [voices, setVoices] = useState([]);
   
   const synthRef = useRef(null);
+  const hasStartedRef = useRef(false);
 
   const {
     transcript,
@@ -51,7 +52,8 @@ export default function InterviewPage() {
   }, [jobType])
 
   useEffect(() => {
-    if (jobType) {
+    if (jobType && !hasStartedRef.current) {
+      hasStartedRef.current = true;
       startInterview()
     }
   }, [jobType, startInterview])
@@ -129,8 +131,6 @@ export default function InterviewPage() {
     } else {
       synthRef.current.speak(utterance)
     }
-
-    synthRef.current.cancel();
 
   }, [audioEnabled]);
 
