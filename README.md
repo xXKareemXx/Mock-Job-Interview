@@ -11,7 +11,7 @@ A conversational AI-powered mock interview platform built with Next.js, React, a
 - **Performance scoring** - Receive scores and actionable insights
 - **Progress Tracking** - Visual progress indicators and response history
 
-## Architecture Overview
+## Simple Architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
