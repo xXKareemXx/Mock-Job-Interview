@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Interview {
+  id          String   @id @default(cuid())
+  userId      String
+  jobType     String
+  status      String   @default("in_progress") // in_progress, completed
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+  
+  responses   Response[]
+  feedback    Feedback?
+  
+  @@map("interviews")
+}
+
+model Question {
+  id           String @id @default(cuid())
+  jobType      String
+  questionText String
+  order        Int
+  category     String // technical, behavioral, general
+  
+  responses    Response[]
+  
+  @@map("questions")
+}
+
+model Response {
+  id           String @id @default(cuid())
+  interviewId  String
+  questionId   String
+  transcript   String
+  duration     Int?    // in seconds
+  createdAt    DateTime @default(now())
+  
+  interview    Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  question     Question  @relation(fields: [questionId], references: [id])
+  
+  @@map("responses")
+}
+
+model Feedback {
+  id                String @id @default(cuid())
+  interviewId       String @unique
+  overallScore      Float
+  strengths         String
+  improvements      String
+  detailedAnalysis  String
+  createdAt         DateTime @default(now())
+  
+  interview         Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  
+  @@map("feedback")
+}

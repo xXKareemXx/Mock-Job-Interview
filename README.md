@@ -1,40 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Mock Interview AI MVP
 
-## Getting Started
+A conversational AI-powered mock interview platform built with Next.js, React, and Groq API. Practice your interview skills with speech recognition and get detailed AI feedback.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Multiple Job Types** - Software Developer, Data Analyst, Marketing Manager
+- **Voice Recognition**: Natural speech-to-text for realistic interview experience
+- **Audio Playback** - Text-to-speech for question delivery
+- **AI-powered feedback** - Get detailed analysis powered by Groq (OpenAI-compatible)
+- **Performance scoring** - Receive scores and actionable insights
+- **Progress Tracking** - Visual progress indicators and response history
+
+## Architecture Overview
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │   API Routes    │    │   Database      │
+│   (Next.js)     │◄──►│   (Next.js)     │◄──►│   (PostgreSQL)  │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+│                       │                      │
+│ • React Components    │ • /api/start        │ • Interviews
+│ • Speech Recognition  │ • /api/response     │ • Questions  
+│ • Speech Synthesis    │ • /api/complete     │ • Responses
+│ • State Management    │ • /api/feedback     │ • Feedback
+└───────────────────────┴─────────────────────┴─────────────────┘
+                                │
+                        ┌─────────────────┐
+                        │   AI Service    │
+                        │   (Groq/Llama)  │
+                        └─────────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js 15 (Pages Router), React, JavaScript, Tailwind CSS
+- **Speech Recognition**: `react-speech-recognition` (Web Speech API)
+- **Text-to-Speech**: `speechSynthesis` Web API
+- **Database**: PostgreSQL with Prisma ORM
+- **AI**: Groq API (OpenAI-compatible)
+- **Deployment**: Vercel-ready
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Database Schema
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```sql
+- Interview: User session with job type and status
+- Questions: Pre-seeded questions by job type and category
+- Responses: User answers with transcripts and duration
+- Feedback: AI-generated analysis with scoring
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Quick Start
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js 18+ 
+- PostgreSQL database
+- Groq API key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone and install dependencies**
+   ```bash
+    git clone <your-repo>
+    cd mock-job-interview
+    npm install
+   ```
 
-## Deploy on Vercel
+2. **Set up PostgreSQL database**
+   ```bash
+    createdb mock_interview_db
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Set up environment variables**
+   ```bash
+    cp .env
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+   Edit `.env` with your credentials:
+   ```env
+    DATABASE_URL="postgresql://username:password@localhost:5432/mock_interview_db"
+    GROQ_API_KEY=your-groq-api-key-here
+   ```
+
+4. **Set up database**
+   ```bash
+    npm run db:setup 
+   ```
+
+   This will:
+   - Generate Prisma client
+   - Push schema to database
+   - Seed with sample questions
+
+5. **Start development server**
+   ```bash
+    npm run dev
+   ```
+
+Visit `http://localhost:3000` to start practicing!
+
+## API Endpoints
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/start` | POST | Initialize new interview session |
+| `/api/response` | POST | Save user response to question |
+| `/api/complete` | POST | Finalize interview and generate feedback |
+| `/api/[interviewId]/feedback` | GET | Retrieve interview results |
+
+### Core Models
+
+- **Interview**: Tracks interview sessions
+- **Question**: Stores interview questions by job type
+- **Response**: User answers to questions
+- **Feedback**: AI-generated feedback and scores
+
+## User Flow
+
+1. **Job Selection**: Choose from Software Developer, Data Analyst, or Marketing Manager
+2. **Interview Start**: Initialize interview session with 6 curated questions
+3. **Question Delivery**: AI reads questions aloud
+4. **Response Recording**: Voice-to-text capture with visual feedback
+5. **Progress Tracking**: Visual progress bar and question navigation
+6. **Interview Completion**: Automatic submission after final question
+7. **AI Analysis**: Groq processes responses for detailed feedback
+8. **Results Review**: Comprehensive feedback with scoring and suggestions
+
+## Testing Browser Compatibility
+
+**Supported:**
+- Chrome/Chromium
+- Safari 14+
+- Edge 79+
+
+**Limited Support:**
+- Firefox (speech recognition varies)
