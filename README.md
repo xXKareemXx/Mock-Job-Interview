@@ -18,12 +18,11 @@ A conversational AI-powered mock interview platform built with Next.js, React, a
 │   Frontend      │    │   API Routes    │    │   Database      │
 │   (Next.js)     │◄──►│   (Next.js)     │◄──►│   (PostgreSQL)  │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
-│                       │                     │
-│ • React Components    │ • /api/start        │ • Interviews
-│ • Speech Recognition  │ • /api/response     │ • Questions  
-│ • Speech Synthesis    │ • /api/complete     │ • Responses
-│ • State Management    │ • /api/feedback     │ • Feedback
-└───────────────────────┴─────────────────────┴─────────────────┘
+│ • React Components   │ • /api/start         │ • Interviews    │
+│ • Speech Recognition │ • /api/response      │ • Questions     │
+│ • Speech Synthesis   │ • /api/complete      │ • Responses     │
+│ • State Management   │ • /api/feedback      │ • Feedback      │
+└──────────────────────┴──────────────────────┴─────────────────┘
                                 │
                         ┌─────────────────┐
                         │   AI Service    │
