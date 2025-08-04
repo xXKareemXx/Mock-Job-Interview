@@ -60,7 +60,7 @@ A conversational AI-powered mock interview platform built with Next.js, React, a
 
 1. **Clone and install dependencies**
    ```bash
-    git clone <your-repo>
+    git clone https://github.com/xXKareemXx/Mock-Job-Interview.git
     cd Mock-Job-Interview
     npm install
    ```
