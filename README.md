@@ -1,6 +1,6 @@
-# AI Interview
+# Mock Job Interview
 
-A conversational AI-powered interview platform built with Next.js, React, and Groq API. Practice your interview skills with speech recognition and get detailed AI feedback.
+A conversational AI-powered mock interview platform built with Next.js, React, and Groq API. Practice your interview skills with speech recognition and get detailed AI feedback.
 
 ## Features
 
