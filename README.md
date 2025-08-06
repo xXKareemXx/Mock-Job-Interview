@@ -11,12 +11,13 @@ A conversational AI-powered mock interview platform built with Next.js, React, a
 - **Performance scoring** - Receive scores and actionable insights
 - **Progress Tracking** - Visual progress indicators and response history
 
-## Simple Architecture
+## Architecture
 
 ```
+         ┌────── Next.js ──────┐
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend      │    │   API Routes    │    │   Database      │
-│   (Next.js)     │◄──►│   (Next.js)     │◄──►│   (PostgreSQL)  │
+│   Frontend      │    │    Backend      │    │   Database      │
+│   (React)       │◄──►│    (Node.js)    │◄──►│   (PostgreSQL)  │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 │ • React Components   │ • /api/start         │ • Interviews    │
 │ • Speech Recognition │ • /api/response      │ • Questions     │
